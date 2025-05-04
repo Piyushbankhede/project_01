@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask ToDo App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 ToDo App</h1>
+
+        <form method="POST" action="/add">
+            <input type="text" name="task" placeholder="Enter a task..." required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <ul>
+            {% for i, task in enumerate(tasks) %}
+                <li class="{{ 'done' if task.completed }}">
+                    {{ task.content }}
+                    {% if not task.completed %}
+                        <a href="/complete/{{ i }}">✅</a>
+                    {% endif %}
+                    <a href="/delete/{{ i }}">❌</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
